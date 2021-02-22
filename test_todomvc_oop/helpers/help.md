@@ -6,3 +6,11 @@ The defined field contains a map of all modules defined in
 the context. You could conceivably access it directly but there's no clear reason to do this since require.defined(id) will tell you whether the module named by id is defined in the context to which require belongs. (Different contexts get different instances of require so a require function knows which context it originated from.)
 
 "Object.keys(require.s.contexts._.defined).length == 39"
+
+echo "# test-todomvc-oop" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/fkthereality/test-todomvc-oop.git
+git push -u origin main

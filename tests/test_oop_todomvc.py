@@ -3,14 +3,12 @@ from test_todomvc_oop.helpers.app import All
 
 def test_open():
     All().open()
-    All().close()
 
 
 def test_add():
     All().open()
     All().add('a', 'b')
     All().assert_todos('a', 'b')
-    All().close()
 
 
 def test_edit():
@@ -18,7 +16,6 @@ def test_edit():
     All().add('a')
     All().edit('a', 'a edited')
     All().assert_todos('a edited')
-    All().close()
 
 
 def test_complete():
@@ -26,7 +23,6 @@ def test_complete():
     All().add('a')
     All().complete('a')
     All().items_left_should_be(0)
-    All().close()
 
 
 def test_toggle_all():
@@ -36,7 +32,6 @@ def test_toggle_all():
     All().items_left_should_be(0)
     All().toggle_all()
     All().items_left_should_be(2)
-    All().close()
 
 
 def test_clear_completed():
@@ -45,7 +40,6 @@ def test_clear_completed():
     All().complete('a')
     All().clear_completed()
     All().assert_todos()
-    All().close()
 
 
 def test_cancel_editing():
@@ -53,7 +47,6 @@ def test_cancel_editing():
     All().add('a')
     All().cancel_editing('a', 'a to be canceled')
     All().assert_todos('a')
-    All().close()
 
 
 def test_delete():
@@ -61,4 +54,3 @@ def test_delete():
     All().add('a', 'b')
     All().delete('a')
     All().assert_todos('b')
-    All().close()
