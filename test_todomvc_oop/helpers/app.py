@@ -1,4 +1,4 @@
-from selene import have, command
+from selene import have, command, be
 from selene.support.shared import browser
 from selenium.webdriver.common.keys import Keys
 
@@ -6,10 +6,9 @@ todo_list = browser.all('#todo-list>li')
 
 
 class App:
-
     def open(self):
         browser.open('https://todomvc4tasj.herokuapp.com/')
-        window_uploaded = "return $._data($('#clear-completed')[0], 'events')"\
+        window_uploaded = "return $._data($('#clear-completed')[0], 'events')" \
                           ".hasOwnProperty('click') " \
                           "& " \
                           "Object.keys(require.s.contexts._.defined).length" \
@@ -17,12 +16,16 @@ class App:
         browser.should(have.js_returned(True, window_uploaded))
         return self
 
+    def restart_page(self):
+        browser.execute_script("location.reload()")
+        return self
+
     def add(self, *texts):
         for text in texts:
             browser.element('#new-todo').type(text).press_enter()
         return self
 
-    def assert_todos(self, *texts):
+    def todos_should_be(self, *texts):
         todo_list.should(have.exact_texts(*texts))
         return self
 
@@ -63,13 +66,29 @@ class App:
         browser.element('#clear-completed').click()
         return self
 
+    def should_clear_completed_be_hidden(self):
+        browser.element('#clear-completed').should(be.hidden)
+        return self
+
+    def should_clear_completed_be_visible(self):
+        browser.element('#clear-completed').should(be.visible)
+        return self
+
     def items_left_should_be(self, value: int):
         browser.element('#todo-count>strong').should(
             have.exact_text(str(value)))
         return self
 
-    def has_no_items_left_displayed(self):
+    def should_has_no_items_left_displayed(self):
         browser.element('#todo-count>strong').is_displayed()
+        return self
+
+    def should_footer_is_hidden(self):
+        browser.element('#footer').should(be.hidden)
+        return self
+
+    def should_footer_is_visible(self):
+        browser.element('#footer').should(be.visible)
         return self
 
     def toggle_all(self):

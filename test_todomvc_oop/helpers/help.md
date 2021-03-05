@@ -17,3 +17,6 @@ git push -u origin main
 
 def test_open():
     All().open()
+
+def __init__(self):
+    self.todo_list = browser.all('#todo-list>li')
