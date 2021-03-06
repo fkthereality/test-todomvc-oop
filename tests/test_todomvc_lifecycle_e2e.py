@@ -9,7 +9,7 @@ def test_common_todos_management():
 
     app.edit('b', 'b edited')
 
-    app.complete('b edited')
+    app.toggle('b edited')
     app.clear_completed()
     app.todos_should_be('a', 'c')
 

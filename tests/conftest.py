@@ -8,4 +8,4 @@ from test_todomvc_oop.helpers.app import App
 def clear_and_close_browser():
     yield
     browser.clear_local_storage()
-    App().close()
+    # App().close()

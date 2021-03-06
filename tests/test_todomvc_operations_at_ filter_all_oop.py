@@ -1,21 +1,24 @@
 from tests import app
 
 """
+Suppositions
+
 NOTE: asserts names are configured as simplest read. 
 Not consistent but readable
 
 I use a minimum of todo in all tests.
 In addition to tests, where need to check several todos 
+
+NOTE: we need to know that ALL preconditions are worked properly
 """
 
 
 def test_open():
-    """Note: we need to know that ALL preconditions are worked properly"""
+
     app.open()
 
     app.todos_should_be()
-    app.should_has_no_items_left_displayed()
-    app.should_footer_is_hidden()
+    app.footer_should_be_hidden()
 
 
 def test_add():
@@ -25,20 +28,8 @@ def test_add():
 
     app.todos_should_be('a')
     app.items_left_should_be(1)
-    app.should_footer_is_visible()
-    app.should_clear_completed_be_hidden()
-
-
-def test_add_and_restart_browser():
-    app.open()
-
-    app.add('a')
-    app.restart_page()
-
-    app.todos_should_be('a')
-    app.items_left_should_be(1)
-    app.should_footer_is_visible()
-    app.should_clear_completed_be_hidden()
+    app.footer_should_be_visible()
+    app.clear_completed_should_be_hidden()
 
 
 def test_add_several():
@@ -48,8 +39,8 @@ def test_add_several():
 
     app.todos_should_be('a', 'b', 'c')
     app.items_left_should_be(3)
-    app.should_footer_is_visible()
-    app.should_clear_completed_be_hidden()
+    app.footer_should_be_visible()
+    app.clear_completed_should_be_hidden()
 
 
 def test_add_nothing():
@@ -58,9 +49,8 @@ def test_add_nothing():
     app.add()
 
     app.todos_should_be()
-    app.should_has_no_items_left_displayed()
-    app.should_footer_is_hidden()
-    app.should_clear_completed_be_hidden()
+    app.footer_should_be_hidden()
+    app.clear_completed_should_be_hidden()
 
 
 def test_edit_by_enter():
@@ -71,8 +61,8 @@ def test_edit_by_enter():
 
     app.todos_should_be('a edited')
     app.items_left_should_be(1)
-    app.should_footer_is_visible()
-    app.should_clear_completed_be_hidden()
+    app.footer_should_be_visible()
+    app.clear_completed_should_be_hidden()
 
 
 def test_edit_by_tab():
@@ -83,20 +73,8 @@ def test_edit_by_tab():
 
     app.todos_should_be('a edited')
     app.items_left_should_be(1)
-    app.should_footer_is_visible()
-    app.should_clear_completed_be_hidden()
-
-
-def test_edit_by_control_enter():
-    app.open()
-    app.add('a')
-
-    app.edit_by_control_enter('a', 'a edited')
-
-    app.todos_should_be('a edited')
-    app.items_left_should_be(1)
-    app.should_footer_is_visible()
-    app.should_clear_completed_be_hidden()
+    app.footer_should_be_visible()
+    app.clear_completed_should_be_hidden()
 
 
 def test_edit_by_click_outside():
@@ -107,8 +85,20 @@ def test_edit_by_click_outside():
 
     app.todos_should_be('a edited')
     app.items_left_should_be(1)
-    app.should_footer_is_visible()
-    app.should_clear_completed_be_hidden()
+    app.footer_should_be_visible()
+    app.clear_completed_should_be_hidden()
+
+
+def test_edit_by_control_enter():
+    app.open()
+    app.add('a')
+
+    app.edit_by_control_enter('a', 'a edited')
+
+    app.todos_should_be('a edited')
+    app.items_left_should_be(1)
+    app.footer_should_be_visible()
+    app.clear_completed_should_be_hidden()
 
 
 def test_edit_border_conditions():
@@ -121,8 +111,8 @@ def test_edit_border_conditions():
 
     app.todos_should_be('a edited', 'b edited', 'c', 'd edited')
     app.items_left_should_be(4)
-    app.should_footer_is_visible()
-    app.should_clear_completed_be_hidden()
+    app.footer_should_be_visible()
+    app.clear_completed_should_be_hidden()
 
 
 def test_cancel_editing():
@@ -133,74 +123,79 @@ def test_cancel_editing():
 
     app.todos_should_be('a')
     app.items_left_should_be(1)
-    app.should_footer_is_visible()
-    app.should_clear_completed_be_hidden()
+    app.footer_should_be_visible()
+    app.clear_completed_should_be_hidden()
 
 
 def test_complete():
     app.open()
-    app.add('a')
+    app.add('a', 'b')
 
-    app.complete('a')
-
-    app.items_left_should_be(0)
-    app.should_footer_is_visible()
-    app.should_clear_completed_be_visible()
-
-    app.complete('a')
+    app.toggle('a')
 
     app.items_left_should_be(1)
-    app.should_footer_is_visible()
-    app.should_clear_completed_be_hidden()
+    app.footer_should_be_visible()
+    app.clear_completed_should_be_visible()
 
 
-def test_toggle_all():
+def test_activate():
+    app.open()
+    app.add('a', 'b')
+    app.toggle('a')
+
+    app.toggle('a')
+
+    app.items_left_should_be(2)
+    app.footer_should_be_visible()
+    app.clear_completed_should_be_hidden()
+
+
+def test_complete_all():
     app.open()
     app.add('a', 'b')
 
     app.toggle_all()
 
     app.items_left_should_be(0)
-    app.should_footer_is_visible()
-    app.should_clear_completed_be_visible()
+    app.footer_should_be_visible()
+    app.clear_completed_should_be_visible()
+
+
+def test_activate_all():
+    app.open()
+    app.add('a', 'b')
+    app.toggle_all()
 
     app.toggle_all()
 
     app.items_left_should_be(2)
-    app.should_footer_is_visible()
-    app.should_clear_completed_be_hidden()
+    app.footer_should_be_visible()
+    app.clear_completed_should_be_hidden()
 
 
-def test_toggle_all_with_some_completed():
+def test_complete_all_with_some_completed():
     app.open()
     app.add('a', 'b')
-    app.complete('b')
+    app.toggle('b')
 
     app.toggle_all()
 
     app.items_left_should_be(0)
-    app.should_footer_is_visible()
-    app.should_clear_completed_be_visible()
-
-    app.toggle_all()
-
-    app.items_left_should_be(2)
-    app.should_footer_is_visible()
-    app.should_clear_completed_be_hidden()
+    app.footer_should_be_visible()
+    app.clear_completed_should_be_visible()
 
 
 def test_clear_completed():
     app.open()
     app.add('a', 'b')
-    app.complete('a')
-    app.complete('b')
+    app.toggle('a')
+    app.toggle('b')
 
     app.clear_completed()
 
     app.todos_should_be()
-    app.should_has_no_items_left_displayed()
-    app.should_footer_is_hidden()
-    app.should_clear_completed_be_hidden()
+    app.footer_should_be_hidden()
+    app.clear_completed_should_be_hidden()
 
 
 def test_delete():
@@ -211,21 +206,20 @@ def test_delete():
 
     app.todos_should_be('b')
     app.items_left_should_be(1)
-    app.should_footer_is_visible()
-    app.should_clear_completed_be_hidden()
+    app.footer_should_be_visible()
+    app.clear_completed_should_be_hidden()
 
 
-def test_delete_edit_to_blanc():
+def test_delete_by_edit_to_blanc():
     app.open()
     app.add('a', 'b')
 
     app.edit('a', '')
-    app.edit('b', '')
 
-    app.todos_should_be()
-    app.should_has_no_items_left_displayed()
-    app.should_footer_is_hidden()
-    app.should_clear_completed_be_hidden()
+    app.todos_should_be('b')
+    app.items_left_should_be(1)
+    app.footer_should_be_visible()
+    app.clear_completed_should_be_hidden()
 
 
 def test_delete_all():
@@ -236,6 +230,5 @@ def test_delete_all():
     app.delete('b')
 
     app.todos_should_be()
-    app.should_has_no_items_left_displayed()
-    app.should_footer_is_hidden()
-    app.should_clear_completed_be_hidden()
+    app.footer_should_be_hidden()
+    app.clear_completed_should_be_hidden()

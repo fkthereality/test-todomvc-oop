@@ -45,19 +45,19 @@ class App:
     def edit_by_tab(self, text, added_text):
         self.start_editing(text, added_text).press_tab()
 
-    def edit_by_control_enter(self, text, added_text):
-        self.start_editing(text, added_text).send_keys(Keys.CONTROL + '\ue007')
-
     def edit_by_click_outside(self, text, added_text):
         self.start_editing(text, added_text)
         browser.element('#new-todo').click()
+
+    def edit_by_control_enter(self, text, added_text):
+        self.start_editing(text, added_text).send_keys(Keys.CONTROL + '\ue007')
 
     def delete(self, text):
         todo_list.element_by(have.exact_text(text)).hover(). \
             element('.destroy').click()
         return self
 
-    def complete(self, text):
+    def toggle(self, text):
         todo_list.element_by(have.exact_text(text)). \
             element('.toggle').click()
         return self
@@ -66,11 +66,11 @@ class App:
         browser.element('#clear-completed').click()
         return self
 
-    def should_clear_completed_be_hidden(self):
+    def clear_completed_should_be_hidden(self):
         browser.element('#clear-completed').should(be.hidden)
         return self
 
-    def should_clear_completed_be_visible(self):
+    def clear_completed_should_be_visible(self):
         browser.element('#clear-completed').should(be.visible)
         return self
 
@@ -79,15 +79,15 @@ class App:
             have.exact_text(str(value)))
         return self
 
-    def should_has_no_items_left_displayed(self):
-        browser.element('#todo-count>strong').is_displayed()
+    def items_left_should_be_visible(self):
+        browser.element('#footer').element('#todo-count>strong').is_displayed()
         return self
 
-    def should_footer_is_hidden(self):
+    def footer_should_be_hidden(self):
         browser.element('#footer').should(be.hidden)
         return self
 
-    def should_footer_is_visible(self):
+    def footer_should_be_visible(self):
         browser.element('#footer').should(be.visible)
         return self
 
