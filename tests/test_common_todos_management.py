@@ -1,7 +1,7 @@
 from tests import app
 
 
-def test_common_todos_management():
+def test_todomvc_lifecycle_e2e():
     app.open()
 
     app.add('a', 'b', 'c')
