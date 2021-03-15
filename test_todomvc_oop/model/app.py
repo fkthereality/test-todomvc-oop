@@ -3,7 +3,9 @@ from selene.support.shared import browser
 from selenium.webdriver.common.keys import Keys
 
 todo_list = browser.all('#todo-list>li')
-
+clear_completed_button = browser.element('#clear-completed')
+footer = browser.element('#footer')
+items_left_counter = browser.element('#todo-count>strong')
 
 class App:
     def open(self):
@@ -35,8 +37,8 @@ class App:
         return todo_list.element_by(have.css_class('editing')). \
             element('.edit').perform(command.js.set_value(added_text))
 
-    def cancel_editing_by_escape(self, text, added_text):
-        self.start_editing(text, added_text).press_escape()
+    def cancel_editing_by_escape(self, text, new_text):
+        self.start_editing(text, new_text).press_escape()
         return self
 
     def edit(self, text, added_text):
@@ -63,32 +65,31 @@ class App:
         return self
 
     def clear_completed(self):
-        browser.element('#clear-completed').click()
+        clear_completed_button.click()
         return self
 
     def clear_completed_should_be_hidden(self):
-        browser.element('#clear-completed').should(be.hidden)
+        clear_completed_button.should(be.hidden)
         return self
 
     def clear_completed_should_be_visible(self):
-        browser.element('#clear-completed').should(be.visible)
+        clear_completed_button.should(be.visible)
         return self
 
     def items_left_should_be(self, value: int):
-        browser.element('#todo-count>strong').should(
-            have.exact_text(str(value)))
+        items_left_counter.should(have.exact_text(str(value)))
         return self
 
     def items_left_should_be_visible(self):
-        browser.element('#footer').element('#todo-count>strong').is_displayed()
+        footer.items_left_counter.is_displayed()
         return self
 
     def footer_should_be_hidden(self):
-        browser.element('#footer').should(be.hidden)
+        footer.should(be.hidden)
         return self
 
     def footer_should_be_visible(self):
-        browser.element('#footer').should(be.visible)
+        footer.should(be.visible)
         return self
 
     def toggle_all(self):

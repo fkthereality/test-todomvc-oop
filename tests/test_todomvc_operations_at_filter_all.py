@@ -10,6 +10,13 @@ I use a minimum of todo in all tests.
 In addition to tests, where need to check several todos 
 
 NOTE: we need to know that ALL preconditions are worked properly
+
+NOTE: I suppose that we need to check and edit 
+by tab 
+and 
+click outside 
+since in the future, it can be two different options for logic, 
+and we check ALL options for actions at all filter
 """
 
 

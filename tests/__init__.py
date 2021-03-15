@@ -1,3 +1,3 @@
-from test_todomvc_oop.helpers import App
+from test_todomvc_oop.model import App
 
 app = App()
