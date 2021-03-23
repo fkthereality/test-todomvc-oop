@@ -21,7 +21,6 @@ and we check ALL options for actions at all filter
 
 
 def test_open():
-
     app.open()
 
     app.todos_should_be()
