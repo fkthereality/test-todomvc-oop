@@ -20,8 +20,8 @@ geckodriver.log
 pyenv-virtualenv
 pyenv-win
 %USERPROFILE%.pyenv/
-
-
+test_todomvc/model/help.md
+test_todomvc/model/todoMVC-test-plan.md
 
 
 
