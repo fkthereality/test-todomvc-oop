@@ -7,6 +7,7 @@ clear_completed_button = browser.element('#clear-completed')
 footer = browser.element('#footer')
 items_left_counter = browser.element('#todo-count>strong')
 
+
 class App:
     def open(self):
         browser.open('https://todomvc4tasj.herokuapp.com/')

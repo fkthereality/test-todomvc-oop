@@ -112,7 +112,9 @@ def test_edit_border_conditions():
     app.add('a', 'b', 'c', 'd')
 
     app.edit('a', 'a edited')
+    app.todos_should_be('a edited', 'b', 'c', 'd')
     app.edit('b', 'b edited')
+    app.todos_should_be('a edited', 'b edited', 'c', 'd')
     app.edit('d', 'd edited')
 
     app.todos_should_be('a edited', 'b edited', 'c', 'd edited')
@@ -140,6 +142,7 @@ def test_complete():
     app.toggle('a')
 
     app.items_left_should_be(1)
+    app.todos_should_be('a', 'b')
     app.footer_should_be_visible()
     app.clear_completed_should_be_visible()
 
@@ -152,6 +155,7 @@ def test_activate():
     app.toggle('a')
 
     app.items_left_should_be(2)
+    app.todos_should_be('a', 'b')
     app.footer_should_be_visible()
     app.clear_completed_should_be_hidden()
 
@@ -163,6 +167,7 @@ def test_complete_all():
     app.toggle_all()
 
     app.items_left_should_be(0)
+    app.todos_should_be('a', 'b')
     app.footer_should_be_visible()
     app.clear_completed_should_be_visible()
 
@@ -175,6 +180,7 @@ def test_activate_all():
     app.toggle_all()
 
     app.items_left_should_be(2)
+    app.todos_should_be('a', 'b')
     app.footer_should_be_visible()
     app.clear_completed_should_be_hidden()
 
@@ -187,6 +193,7 @@ def test_complete_all_with_some_completed():
     app.toggle_all()
 
     app.items_left_should_be(0)
+    app.todos_should_be('a', 'b')
     app.footer_should_be_visible()
     app.clear_completed_should_be_visible()
 

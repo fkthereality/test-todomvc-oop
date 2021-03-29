@@ -20,7 +20,7 @@ geckodriver.log
 pyenv-virtualenv
 pyenv-win
 %USERPROFILE%.pyenv/
-tests/test_preconditions.py
+
 
 
 
